@@ -1,3 +1,4 @@
+import Image from "next/image";
 import {
   GithubIcon,
   ExternalIcon,
@@ -17,6 +18,7 @@ type Row = {
   github?: string;
   live?: string;
   video?: string;
+  image?: string;
 };
 
 const projects: Row[] = [
@@ -32,6 +34,7 @@ const projects: Row[] = [
     href: "#csnavigator",
     github: "https://github.com/theaayushstha1/cs-navigator",
     live: "https://cs.inavigator.ai",
+    image: "/assets/projects/image1.jpeg",
   },
   {
     date: "2025",
@@ -43,6 +46,7 @@ const projects: Row[] = [
     tag: "Computer Vision",
     href: "#bias",
     github: "https://github.com/theaayushstha1/Nao-OpenAI-2.0",
+    image: "/assets/projects/image2.jpeg",
   },
   {
     date: "2025",
@@ -55,6 +59,7 @@ const projects: Row[] = [
     href: "#robi",
     github: "https://github.com/theaayushstha1/nao-sagecbt",
     video: "https://youtu.be/wZOuK8Sw6gA",
+    image: "https://img.youtube.com/vi/wZOuK8Sw6gA/hqdefault.jpg",
   },
   {
     date: "2025",
@@ -66,6 +71,7 @@ const projects: Row[] = [
     tag: "Environmental ML",
     badge: "Bezos $1M",
     href: "#air-quality",
+    image: "/assets/projects/image3.png",
   },
   {
     date: "2025",
@@ -76,6 +82,7 @@ const projects: Row[] = [
       "Supervised models trained on 822,226 healthcare IT records sourced from AWS, surfacing threats with practical accuracy. Shipped as an application alongside peer-reviewed publications and conference presentations.",
     tag: "Cybersecurity",
     href: "#cybersecurity",
+    image: "/assets/projects/image4.png",
   },
   {
     date: "2024",
@@ -86,6 +93,7 @@ const projects: Row[] = [
       "After a couple of color received a six-figure undervaluation on a California home appraisal, we shipped Higgin: a mobile app that transforms voice into any preferred profile. Dual use for accessibility, translation, and field communication.",
     tag: "Voice ML",
     href: "#higgin",
+    image: "/assets/projects/image5.png",
   },
   {
     date: "Ongoing",
@@ -97,6 +105,7 @@ const projects: Row[] = [
     tag: "Quantum ML",
     badge: "NSF · USAF",
     href: "#quantum-ai",
+    image: "/assets/projects/image6.png",
   },
   {
     date: "Ongoing",
@@ -108,6 +117,7 @@ const projects: Row[] = [
     tag: "Quantum Security",
     badge: "Patent Pending",
     href: "#qgp",
+    image: "/assets/projects/image7.png",
   },
 ];
 
@@ -152,7 +162,7 @@ export function PublicationList() {
                   </span>
                 </div>
 
-                {/* 2. Date + tags */}
+                {/* 2. Date + tags + image */}
                 <div>
                   <div className="font-mono text-[11px] uppercase tracking-[0.22em] text-muted">
                     {row.date}
@@ -167,6 +177,17 @@ export function PublicationList() {
                       </span>
                     )}
                   </div>
+                  {row.image && (
+                    <div className="mt-4 relative w-full aspect-video rounded overflow-hidden border border-[var(--rule)]">
+                      <Image
+                        src={row.image}
+                        alt={row.title}
+                        fill
+                        className="object-cover"
+                        unoptimized={row.image.startsWith("http")}
+                      />
+                    </div>
+                  )}
                 </div>
 
                 {/* 3. Title + authors */}

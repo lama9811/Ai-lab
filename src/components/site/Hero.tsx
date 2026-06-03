@@ -12,7 +12,7 @@ export function Hero() {
             style={{ fontVariationSettings: '"opsz" 144, "SOFT" 30, "WONK" 0' }}
             className="font-serif font-light leading-[0.96] tracking-[-0.03em] text-[2.7rem] sm:text-[4.2rem] lg:text-[5.8rem] xl:text-[6.6rem] max-w-[14ch] text-balance"
           >
-            Applied AI Projects
+            AI Projects
           </h1>
 
           <p className="font-geist mt-5 text-[1.05rem] sm:text-[1.2rem] lg:text-[1.35rem] text-ink-soft font-medium">
@@ -20,8 +20,8 @@ export function Hero() {
           </p>
 
           <p className="mt-9 max-w-[44rem] text-[15px] sm:text-[17px] leading-[1.6] text-ink-soft">
-            We build agentic assistants, bias-aware vision, environmental
-            data platforms, and quantum-secure networks. Backed by the NSF,
+            We conduct research and development in agentic assistants, bias-aware vision, environmental
+            data platforms, and quantum-secure networks. Supported by the NSF, Google, DOE,
             the U.S. Air Force, and the Bezos Earth Fund. Work presented at
             Princeton, Harvard, Yale, and AAAS.
           </p>
