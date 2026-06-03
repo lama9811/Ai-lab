@@ -1,91 +1,71 @@
 export function Hero() {
   return (
-    <section className="relative overflow-hidden">
-      <div className="mx-auto max-w-[1400px] px-6 lg:px-10 pt-28 pb-24 lg:pt-36 lg:pb-32">
+    <section className="relative">
+      <div className="mx-auto max-w-[920px] px-6 lg:px-10 pt-20 pb-20 lg:pt-28 lg:pb-28">
         <div className="flex flex-col items-center text-center">
-          <span className="font-mono text-[11px] uppercase tracking-[0.28em] text-muted mb-7">
-            <span className="inline-block w-1.5 h-1.5 rounded-full bg-accent mr-2 align-middle" />
-            CS Department · Morgan State University
-          </span>
-
-          <h1
-            style={{ fontVariationSettings: '"opsz" 144, "SOFT" 30, "WONK" 0' }}
-            className="font-serif font-light leading-[0.96] tracking-[-0.03em] text-[2.7rem] sm:text-[4.2rem] lg:text-[5.8rem] xl:text-[6.6rem] max-w-[14ch] text-balance"
-          >
+          <h1 className="font-display font-medium leading-[1.0] tracking-[-0.035em] text-[3.4rem] sm:text-[5rem] lg:text-[6rem]">
             AI Projects
           </h1>
 
-          <p className="font-geist mt-5 text-[1.05rem] sm:text-[1.2rem] lg:text-[1.35rem] text-ink-soft font-medium">
+          <p className="mt-4 text-[1.1rem] sm:text-[1.3rem] text-fg-soft font-medium">
             under Dr. Paul Wang
           </p>
 
-          <p className="mt-9 max-w-[44rem] text-[15px] sm:text-[17px] leading-[1.6] text-ink-soft">
-            We conduct research and development in agentic assistants, bias-aware vision, environmental
-            data platforms, and quantum-secure networks. Supported by the NSF, Google, DOE,
-            the U.S. Air Force, and the Bezos Earth Fund. Work presented at
-            Princeton, Harvard, Yale, and AAAS.
+          <p className="mt-7 max-w-[44rem] text-[16px] sm:text-[18px] leading-[1.6] text-fg-soft">
+            We conduct research and development in agentic assistants, bias-aware
+            vision, environmental data platforms, and quantum-secure networks —
+            at the Morgan State Computer Science department, with work presented
+            at Princeton, Harvard, Yale, and AAAS.
           </p>
 
-          <div className="mt-11 flex items-center gap-6">
+          <div className="mt-9 flex flex-col sm:flex-row items-center gap-3.5">
             <a
               href="#research"
-              className="inline-flex items-center gap-2 text-[13px] text-ink hover:text-accent transition-colors"
+              className="btn-dark inline-flex items-center gap-2.5 rounded-full px-6 py-3.5 text-[15px] font-medium"
             >
-              <span className="border-b border-ink/40 pb-0.5">
-                Latest from the lab
-              </span>
-              <Arrow />
+              Learn more
+              <svg width="13" height="13" viewBox="0 0 13 13" aria-hidden>
+                <path
+                  d="M1 6.5h10M7 2.5l4 4-4 4"
+                  stroke="currentColor"
+                  strokeWidth="1.4"
+                  fill="none"
+                />
+              </svg>
             </a>
-            <span className="h-3 w-px bg-[var(--rule)]" />
             <a
-              href="#lab"
-              className="inline-flex items-center gap-2 text-[13px] text-muted hover:text-ink transition-colors"
+              href="https://cs.inavigator.ai"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 rounded-full border border-border-strong px-6 py-3.5 text-[15px] text-fg-soft hover:text-fg hover:border-fg/40 transition-colors"
             >
-              About the lab
-              <Arrow />
+              Open csNavigator
             </a>
+          </div>
+
+          <div className="mt-11 flex flex-wrap items-center justify-center gap-x-4 gap-y-2">
+            <Stars />
+            <span className="text-[13px] text-fg-soft">
+              Supported by NSF · Google · DOE · U.S. Air Force · Bezos Earth Fund
+            </span>
           </div>
         </div>
       </div>
-
-      <BackdropDecoration />
     </section>
   );
 }
 
-function Arrow() {
+function Stars() {
   return (
-    <svg width="11" height="11" viewBox="0 0 11 11" aria-hidden>
-      <path
-        d="M1 5.5h9M6 1.5l4 4-4 4"
-        stroke="currentColor"
-        strokeWidth="1.2"
-        fill="none"
-      />
-    </svg>
-  );
-}
-
-function BackdropDecoration() {
-  return (
-    <svg
-      aria-hidden
-      className="pointer-events-none absolute -top-24 left-1/2 -translate-x-1/2 opacity-[0.08] -z-0"
-      width="1200"
-      height="620"
-      viewBox="0 0 1200 620"
-      fill="none"
-    >
-      {Array.from({ length: 26 }).map((_, i) => (
-        <circle
-          key={i}
-          cx="600"
-          cy="320"
-          r={20 + i * 22}
-          stroke="currentColor"
-          strokeWidth="0.6"
-        />
+    <span className="flex items-center gap-0.5 text-fg">
+      {Array.from({ length: 5 }).map((_, i) => (
+        <svg key={i} width="14" height="14" viewBox="0 0 16 16" aria-hidden>
+          <path
+            d="M8 1l2 4.4 4.8.5-3.6 3.2 1 4.7L8 11.4 3.8 13.8l1-4.7L1.2 5.9 6 5.4 8 1z"
+            fill="currentColor"
+          />
+        </svg>
       ))}
-    </svg>
+    </span>
   );
 }
