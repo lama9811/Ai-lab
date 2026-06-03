@@ -1,63 +1,166 @@
 @import "tailwindcss";
 
 :root {
-  --paper: #f7f5ef;
-  --paper-soft: #efece3;
-  --ink: #0e0e0e;
-  --ink-soft: #2a2a2a;
-  --muted: #6b6862;
-  --rule: #d9d5c8;
-  --accent: #b94e1d;
-  --night: #0c0c0c;
-  --night-soft: #1a1a1a;
+  /* Light "Next:well" surfaces — warm cream */
+  --bg: #f4f2ec;
+  --bg-2: #efece4;
+  --surface: #faf9f5;
+  --surface-2: #efece4;
+  --surface-3: #e7e3d8;
+
+  /* Borders */
+  --border: rgba(22, 20, 13, 0.1);
+  --border-strong: rgba(22, 20, 13, 0.2);
+
+  /* Text — warm near-black */
+  --fg: #17160f;
+  --fg-soft: #4c4a40;
+  --fg-muted: #8a877d;
+
+  /* Morgan State brand */
+  --brand-blue: #1b4383; /* Morgan Blue — Pantone 288 */
+  --brand-blue-soft: #15356a;
+  --accent: #f47937; /* Morgan Orange — Pantone 1655 */
+  --accent-soft: #e0631f;
+  --accent-glow: rgba(244, 121, 55, 0.16);
+  --gold: #f47937;
 }
 
 @theme inline {
-  --color-paper: var(--paper);
-  --color-paper-soft: var(--paper-soft);
-  --color-ink: var(--ink);
-  --color-ink-soft: var(--ink-soft);
-  --color-muted: var(--muted);
-  --color-rule: var(--rule);
+  --color-bg: var(--bg);
+  --color-bg-2: var(--bg-2);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-surface-3: var(--surface-3);
+  --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
+  --color-fg: var(--fg);
+  --color-fg-soft: var(--fg-soft);
+  --color-fg-muted: var(--fg-muted);
   --color-accent: var(--accent);
-  --color-night: var(--night);
-  --color-night-soft: var(--night-soft);
-  --font-sans: var(--font-inter);
-  --font-serif: var(--font-serif);
-  --font-geist: var(--font-geist);
-  --font-mono: var(--font-mono);
-}
+  --color-accent-soft: var(--accent-soft);
+  --color-gold: var(--gold);
+  --color-brand-blue: var(--brand-blue);
+  --color-brand-blue-soft: var(--brand-blue-soft);
 
-.font-geist {
-  font-family: var(--font-geist), ui-sans-serif, system-ui, sans-serif;
-  font-feature-settings: "ss01", "ss02", "cv11", "kern";
-  letter-spacing: -0.012em;
+  --font-sans: var(--font-sans);
 }
 
 html,
 body {
-  background: var(--paper);
-  color: var(--ink);
-  font-family: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }
 
-::selection {
-  background: var(--ink);
-  color: var(--paper);
+/* Display / heading face — Space Grotesk */
+.font-display {
+  font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+  letter-spacing: -0.03em;
 }
 
-.font-serif {
-  font-family: var(--font-serif), ui-serif, Georgia, serif;
-  font-feature-settings: "ss01", "liga", "kern";
-  font-variation-settings: "opsz" 144, "SOFT" 30, "WONK" 0;
-}
-
+.font-geist,
 .font-mono {
-  font-family: var(--font-mono), ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+  letter-spacing: normal;
+  text-transform: none;
+}
+
+::selection {
+  background: var(--brand-blue);
+  color: #fff;
+}
+
+/* Morgan Blue pill button (primary) */
+.btn-dark {
+  background: var(--brand-blue);
+  color: #fff;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+.btn-dark:hover {
+  background: var(--brand-blue-soft);
+}
+
+/* Faint warm radial wash for light sections */
+.glow {
+  background: radial-gradient(
+    55% 55% at 50% 0%,
+    var(--accent-glow) 0%,
+    transparent 70%
+  );
+}
+
+/* Faint grid backdrop */
+.grid-bg {
+  background-image: linear-gradient(
+      to right,
+      var(--border) 1px,
+      transparent 1px
+    ),
+    linear-gradient(to bottom, var(--border) 1px, transparent 1px);
+  background-size: 56px 56px;
+  -webkit-mask-image: radial-gradient(
+    60% 60% at 50% 25%,
+    #000 0%,
+    transparent 75%
+  );
+  mask-image: radial-gradient(60% 60% at 50% 25%, #000 0%, transparent 75%);
+}
+
+/* Cards */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  transition: border-color 0.25s ease, box-shadow 0.25s ease,
+    transform 0.25s ease;
+}
+.card:hover {
+  border-color: var(--border-strong);
+  box-shadow: 0 18px 40px -28px rgba(22, 20, 13, 0.4);
+}
+
+/* Warm orange abstract tile (mimics Next:well decorative image, our own graphic) */
+.tile-orange {
+  background: radial-gradient(
+      120% 120% at 20% 10%,
+      #ffd2a8 0%,
+      #f47937 38%,
+      #d4561c 78%,
+      #7a2e0c 100%
+    );
 }
 
 .hairline {
-  border-color: var(--rule);
+  border-color: var(--border);
+}
+
+/* 3D tilt + float for project cards */
+@keyframes float-bob {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-9px);
+  }
+}
+
+.tilt-float {
+  animation: float-bob 6.5s ease-in-out infinite;
+  will-change: transform;
+}
+
+.tilt-inner {
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tilt-float {
+    animation: none;
+  }
+  .tilt-inner {
+    transform: none !important;
+  }
 }
