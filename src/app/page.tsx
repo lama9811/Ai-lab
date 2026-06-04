@@ -1,4 +1,6 @@
-import { Nav } from "@/components/site/Nav";
+import NavHeader from "@/components/ui/nav-header";
+import { Wordmark } from "@/components/site/Wordmark";
+import { MobileMenu } from "@/components/site/MobileMenu";
 import { Hero } from "@/components/site/Hero";
 import { StatsBand } from "@/components/site/StatsBand";
 import { ResearchAreas } from "@/components/site/ResearchAreas";
@@ -12,7 +14,43 @@ import { Footer } from "@/components/site/Footer";
 export default function Home() {
   return (
     <div className="min-h-screen flex flex-col bg-bg text-fg">
-      <Nav />
+      <header className="sticky top-0 z-50 border-b border-border bg-bg/70 backdrop-blur-xl">
+        <div className="mx-auto grid h-20 max-w-[1280px] grid-cols-[1fr_auto_1fr] items-center gap-4 px-6 lg:px-10">
+          <div className="justify-self-start">
+            <Wordmark tone="paper" />
+          </div>
+
+          <div className="hidden justify-self-center md:block">
+            <NavHeader />
+          </div>
+
+          <div className="flex items-center gap-3 justify-self-end">
+            <a
+              href="#join"
+              className="btn-dark hidden items-center gap-1.5 rounded-full px-4 py-2 text-[13.5px] font-medium sm:inline-flex"
+            >
+              Join the lab
+              <svg width="11" height="11" viewBox="0 0 11 11" aria-hidden>
+                <path
+                  d="M1 5.5h9M6 1.5l4 4-4 4"
+                  stroke="currentColor"
+                  strokeWidth="1.3"
+                  fill="none"
+                />
+              </svg>
+            </a>
+            <MobileMenu
+              links={[
+                { label: "Research", href: "#research" },
+                { label: "Projects", href: "#projects" },
+                { label: "People", href: "#people" },
+                { label: "Publications", href: "#publications" },
+                { label: "News", href: "#news" },
+              ]}
+            />
+          </div>
+        </div>
+      </header>
       <main className="flex-1">
         <Hero />
         <StatsBand />
