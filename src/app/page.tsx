@@ -4,11 +4,11 @@ import { MobileMenu } from "@/components/site/MobileMenu";
 import { Hero } from "@/components/site/Hero";
 import { StatsBand } from "@/components/site/StatsBand";
 import { ResearchAreas } from "@/components/site/ResearchAreas";
+import { PeopleGrid } from "@/components/site/PeopleGrid";
 import { PublicationList } from "@/components/site/PublicationList";
 import { MissionCard } from "@/components/site/MissionCard";
 import { SeminarsBanner } from "@/components/site/SeminarsBanner";
 import { NewsGrid } from "@/components/site/NewsGrid";
-import { CtaBand } from "@/components/site/CtaBand";
 import { Footer } from "@/components/site/Footer";
 
 export default function Home() {
@@ -25,20 +25,6 @@ export default function Home() {
           </div>
 
           <div className="flex items-center gap-3 justify-self-end">
-            <a
-              href="#join"
-              className="btn-dark hidden items-center gap-1.5 rounded-full px-4 py-2 text-[13.5px] font-medium sm:inline-flex"
-            >
-              Join the lab
-              <svg width="11" height="11" viewBox="0 0 11 11" aria-hidden>
-                <path
-                  d="M1 5.5h9M6 1.5l4 4-4 4"
-                  stroke="currentColor"
-                  strokeWidth="1.3"
-                  fill="none"
-                />
-              </svg>
-            </a>
             <MobileMenu
               links={[
                 { label: "Research", href: "#research" },
@@ -55,11 +41,11 @@ export default function Home() {
         <Hero />
         <StatsBand />
         <ResearchAreas />
+        <PeopleGrid />
         <PublicationList />
         <MissionCard />
         <SeminarsBanner />
         <NewsGrid />
-        <CtaBand />
       </main>
       <Footer />
     </div>

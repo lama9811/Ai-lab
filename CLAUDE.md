@@ -31,6 +31,9 @@ Department of Computer Science.
 - `src/components/ui/` — reusable, self-owned primitives (shadcn-style convention).
   Drop generic/copy-in components here, not in `site/`.
 - `public/assets/brand/` — brand imagery (e.g. `msu-tower.png` used by `Wordmark`).
+- `public/assets/people/` — team headshots used by `PeopleGrid` (one PNG per
+  person, e.g. `paul-wang.png`).
+- `public/assets/projects/` — project card imagery used by `PublicationList`.
 - shadcn is **not** initialized (no `components.json` / `lib/utils.ts`); the
   `ui/` folder follows the convention without the CLI. Run `npx shadcn@latest init`
   only if a future component needs `cn()` or other shadcn utilities.
@@ -50,7 +53,10 @@ than raw colors:
 ## Navigation
 
 The site header lives in `src/app/page.tsx` and is a 3-column grid:
-**Wordmark (left) · animated pill nav (center) · "Join the lab" CTA + MobileMenu (right)**.
+**Wordmark (left) · animated pill nav (center) · MobileMenu (right)**.
+(The "Join the lab" header CTA and the `CtaBand` section were removed; the
+`#join` anchor no longer exists. `CtaBand.tsx` remains in the tree but is
+unused/unimported.)
 
 - `src/components/ui/nav-header.tsx` — the animated pill (`NavHeader`). A
   framer-motion cursor slides under the hovered tab; tab labels are `text-fg-soft`
@@ -60,3 +66,24 @@ The site header lives in `src/app/page.tsx` and is a 3-column grid:
 - The pill is hidden below `md`; `MobileMenu` provides the small-screen menu.
 - Section links must stay in sync between `nav-header.tsx` and the `MobileMenu`
   links array in `page.tsx`.
+
+## People section
+
+`src/components/site/PeopleGrid.tsx` (`<section id="people">`, rendered between
+`ResearchAreas` and `PublicationList`) is the team grid the `#people` nav link
+targets.
+
+- People are a `Person[]` data array at the top of the file:
+  `{ name, role, photo, bio?, link? }`.
+- `photo` is a path under `public/assets/people/` (e.g.
+  `"/assets/people/paul-wang.png"`). Set it to `null` to render a styled
+  **initials avatar** instead (a Morgan-blue tile with the person's initials,
+  tint alternating by index) — the fallback for people without a headshot yet.
+- `bio` (optional one-liner) and `link` (`{ href, label }`, opens in a new tab)
+  render under the role only when present. Currently only Dr. Wang has a `bio`;
+  team members use `link` for their LinkedIn.
+- The grid is `grid-cols-2 sm:grid-cols-3 lg:grid-cols-4` with **`items-start`**
+  so cards size to their own content (a taller bio card doesn't stretch the
+  others).
+- To add/replace a person: drop a square PNG in `public/assets/people/` and add
+  or edit one entry in the array — no JSX changes needed.
