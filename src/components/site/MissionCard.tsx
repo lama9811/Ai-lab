@@ -15,8 +15,8 @@ export function MissionCard() {
               Lab mission
             </span>
             <p className="mt-5 font-display font-semibold text-[1.7rem] sm:text-[2.2rem] lg:text-[2.7rem] leading-[1.1] tracking-[-0.03em] max-w-[24ch] text-balance">
-              We build AI systems that work in the real world — measured against
-              grants, students, and the communities our research touches.
+              We study AI models that contribute to basic AI research, and build
+              AI systems that interact with the real world.
             </p>
             <a
               href="#about"
