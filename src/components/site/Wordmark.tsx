@@ -17,14 +17,14 @@ export function Wordmark({ tone = "paper" }: Props) {
         width={101}
         height={106}
         className="h-12 w-auto"
-        preload
+        priority
       />
       <span className="flex flex-col leading-none">
         <span className="font-display font-semibold text-[1.3rem] tracking-[-0.02em]">
           Applied AI Lab
         </span>
         <span className="mt-1.5 text-[10px] uppercase tracking-[0.14em] text-fg-muted">
-          Department of Computer Science · MSU
+          Department of Computer Science
         </span>
       </span>
     </a>

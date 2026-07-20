@@ -8,14 +8,13 @@ export function Hero() {
           </h1>
 
           <p className="mt-4 text-[1.1rem] sm:text-[1.3rem] text-fg-soft font-medium">
-            under Dr. Paul Wang
+            Lab Director: Dr. Paul Wang
           </p>
 
           <p className="mt-7 max-w-[44rem] text-[16px] sm:text-[18px] leading-[1.6] text-fg-soft">
-            We conduct research and development in agentic assistants, bias-aware
-            vision, environmental data platforms, and quantum-secure networks —
-            at the Morgan State Computer Science department, with work presented
-            at Princeton, Harvard, Yale, and AAAS.
+            We conduct research and development in AI models, reinforcement
+            learning, agentic AI, multimodal AI, AI in cybersecurity, and quantum
+            AI — with work presented at Princeton, Harvard, Yale, and AAAS.
           </p>
 
           <div className="mt-9 flex flex-col sm:flex-row items-center gap-3.5">
