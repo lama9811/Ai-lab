@@ -4,6 +4,7 @@ import { MobileMenu } from "@/components/site/MobileMenu";
 import { Hero } from "@/components/site/Hero";
 import { StatsBand } from "@/components/site/StatsBand";
 import { ResearchAreas } from "@/components/site/ResearchAreas";
+import { PeopleGrid } from "@/components/site/PeopleGrid";
 import { PublicationList } from "@/components/site/PublicationList";
 import { MissionCard } from "@/components/site/MissionCard";
 import { SeminarsBanner } from "@/components/site/SeminarsBanner";
@@ -40,6 +41,7 @@ export default function Home() {
         <Hero />
         <StatsBand />
         <ResearchAreas />
+        <PeopleGrid />
         <PublicationList />
         <MissionCard />
         <SeminarsBanner />
