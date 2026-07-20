@@ -24,7 +24,7 @@ export function Wordmark({ tone = "paper" }: Props) {
           Applied AI Lab
         </span>
         <span className="mt-1.5 text-[10px] uppercase tracking-[0.14em] text-fg-muted">
-          Department of Computer Science · MSU
+          Department of Computer Science
         </span>
       </span>
     </a>
