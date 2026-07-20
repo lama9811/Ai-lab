@@ -29,8 +29,9 @@ const projects: Row[] = [
     tag: "Agentic AI",
     badge: "Live",
     href: "#csnavigator",
-    github: "https://github.com/theaayushstha1/cs-navigator",
+    github: "https://github.com/lama9811/cs.inavigator.ai",
     live: "https://cs.inavigator.ai",
+    image: "/assets/projects/csnavigator.png",
   },
   {
     date: "2025",

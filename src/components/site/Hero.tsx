@@ -4,7 +4,7 @@ export function Hero() {
       <div className="mx-auto max-w-[920px] px-6 lg:px-10 pt-20 pb-20 lg:pt-28 lg:pb-28">
         <div className="flex flex-col items-center text-center">
           <h1 className="font-display font-medium leading-[1.0] tracking-[-0.035em] text-[3.4rem] sm:text-[5rem] lg:text-[6rem]">
-            AI Projects
+            AI Research and Development
           </h1>
 
           <p className="mt-4 text-[1.1rem] sm:text-[1.3rem] text-fg-soft font-medium">
