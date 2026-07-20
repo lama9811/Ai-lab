@@ -17,7 +17,7 @@ export function Wordmark({ tone = "paper" }: Props) {
         width={101}
         height={106}
         className="h-12 w-auto"
-        preload
+        priority
       />
       <span className="flex flex-col leading-none">
         <span className="font-display font-semibold text-[1.3rem] tracking-[-0.02em]">
