@@ -1,9 +1,3 @@
-const metrics = [
-  { value: "94%", label: "Of projects ship a working system, not just a paper" },
-  { value: "6+", label: "Federal & philanthropic grants powering the lab" },
-  { value: "250+", label: "Students mentored through applied research" },
-];
-
 export function MissionCard() {
   return (
     <section id="lab" className="border-t border-border">
@@ -32,19 +26,6 @@ export function MissionCard() {
                 />
               </svg>
             </a>
-
-            <div className="mt-14 grid grid-cols-1 sm:grid-cols-3 gap-px overflow-hidden rounded-2xl border border-border bg-border">
-              {metrics.map((m) => (
-                <div key={m.value} className="bg-surface-2 px-7 py-7">
-                  <div className="font-display font-semibold text-[2rem] lg:text-[2.4rem] leading-none tracking-[-0.03em] text-accent">
-                    {m.value}
-                  </div>
-                  <p className="mt-2.5 text-[13px] leading-[1.5] text-fg-soft">
-                    {m.label}
-                  </p>
-                </div>
-              ))}
-            </div>
           </div>
         </div>
       </div>
