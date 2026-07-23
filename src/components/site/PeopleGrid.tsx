@@ -23,6 +23,21 @@ const people: Person[] = [
     link: { href: "https://p-neumann.github.io/paul/", label: "Learn more" },
   },
   {
+    name: "Teqwon Morman",
+    role: "Research Assistant",
+    photo: "/assets/people/teqwon-morman.png",
+  },
+  {
+    name: "Terell Reed",
+    role: "Research Assistant",
+    photo: "/assets/people/terell-reed.png",
+  },
+  {
+    name: "Aramide Ogundiran",
+    role: "Research Assistant",
+    photo: "/assets/people/aramide-ogundiran.png",
+  },
+  {
     name: "Jianzhou Mao",
     role: "Postdoctoral Researcher",
     photo: "/assets/people/jianzhou-mao.png",
@@ -49,7 +64,7 @@ const people: Person[] = [
   {
     name: "Aayush Shrestha",
     role: "Research Assistant",
-    photo: null,
+    photo: "/assets/people/aayush-shrestha.png",
     link: {
       href: "https://www.linkedin.com/in/aayushshrestha123/",
       label: "LinkedIn",
