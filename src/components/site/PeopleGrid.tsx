@@ -26,6 +26,7 @@ const people: Person[] = [
     name: "Teqwon Morman",
     role: "Research Assistant",
     photo: "/assets/people/teqwon-morman.png",
+    link: { href: "https://www.linkedin.com/in/teqwon/", label: "LinkedIn" },
   },
   {
     name: "Terell Reed",
