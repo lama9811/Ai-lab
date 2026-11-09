@@ -13,8 +13,8 @@ export function Hero() {
 
           <p className="mt-7 max-w-[44rem] text-[16px] sm:text-[18px] leading-[1.6] text-fg-soft">
             We conduct research and development in AI models, reinforcement
-            learning, agentic AI, multimodal AI, AI in cybersecurity, and quantum
-            AI — with work presented at Princeton, Harvard, Yale, and AAAS.
+            learning, Markov Decision Process, agentic AI, multimodal AI, AI in cybersecurity, and quantum
+            AI — with work presented at Princeton, Harvard, Yale, AAAS, and international conferences.
           </p>
 
           <div className="mt-9 flex flex-col sm:flex-row items-center gap-3.5">

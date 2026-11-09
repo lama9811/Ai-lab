@@ -14,7 +14,7 @@ const pillars: Pillar[] = [
   },
   {
     code: "R/02",
-    title: "Applied ML for the Environment and Public Good",
+    title: "ML for the Environment and Public Good",
     blurb: "Models that interrogate housing, health, and environmental data.",
     icon: "ml",
   },
