@@ -20,7 +20,7 @@ const pillars: Pillar[] = [
   },
   {
     code: "R/03",
-    title: "Robotics & Computer Vision",
+    title: "Robotics and Computer Vision",
     blurb: "Vision systems that work for everyone, audited for bias.",
     icon: "vision",
   },
