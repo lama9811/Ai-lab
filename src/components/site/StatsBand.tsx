@@ -1,7 +1,7 @@
 const stats = [
-  { value: "$1M", label: "Bezos Earth Fund grant", sub: "+ NSF & USAF awards" },
+  { value: "$1+M", label: "Bezos Earth Fund and othergrant", sub: "+ NSF & USAF awards" },
   { value: "822,226", label: "Healthcare records analyzed", sub: "Cybersecurity · AWS" },
-  { value: "8", label: "Active research projects", sub: "Agentic · ML · Quantum" },
+  { value: "9", label: "Active research projects", sub: "Agentic · ML · Quantum" },
   { value: "32", label: "AI & quantum courses", sub: "18 AI · 14 quantum" },
 ];
 
