@@ -8,25 +8,25 @@ type Pillar = {
 const pillars: Pillar[] = [
   {
     code: "R/01",
-    title: "Agentic AI",
-    blurb: "Multimodal agents for advising, support, and applied workflows.",
+    title: "Agentic AI and AI Models",
+    blurb: "Multimodal agents for studentadvising; math foundation of AI models.",
     icon: "agent",
   },
   {
     code: "R/02",
-    title: "Applied ML for the Public Good",
+    title: "Applied ML for the Environment and Public Good",
     blurb: "Models that interrogate housing, health, and environmental data.",
     icon: "ml",
   },
   {
     code: "R/03",
     title: "Robotics & Computer Vision",
-    blurb: "Vision systems that work for everyone, audited for bias.",
+    blurb: "Automonous Systems, ML systems that work for everyone, audited for bias.",
     icon: "vision",
   },
   {
     code: "R/04",
-    title: "Quantum & Post-Quantum Security",
+    title: "Quantum AI & Post-Quantum Security",
     blurb: "Networks and protocols built for the next generation of compute.",
     icon: "quantum",
   },
