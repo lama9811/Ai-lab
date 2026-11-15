@@ -56,7 +56,7 @@ const projects: Row[] = [
     href: "#robi",
     github: "https://github.com/theaayushstha1/nao-sagecbt",
     video: "https://youtu.be/wZOuK8Sw6gA",
-    image: "https://img.youtube.com/vi/wZOuK8Sw6gA/hqdefault.jpg",
+    image: "/assets/projects/robi-counselor-robot.png",
   },
   {
     date: "2025",
