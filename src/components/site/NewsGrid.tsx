@@ -1,30 +1,39 @@
-import { ArrowIcon } from "./Icons";
+import Image from "next/image";
+import { ArrowIcon, YoutubeIcon } from "./Icons";
 
 type Card = {
   tag: string;
   date: string;
   title: string;
+  /** Source shown under the headline, e.g. "WBAL-TV 11". */
+  source: string;
+  href: string;
+  /** Thumbnail under /public/assets/news/. Falls back to generated art. */
+  image?: string;
+  /** Optional companion video (opens in a new tab). */
+  video?: string;
   variant: "a" | "b" | "c";
 };
 
 const news: Card[] = [
   {
-    tag: "Press",
-    date: "Spring 2026",
-    title: "Headline placeholder for a recent press mention or invited talk.",
+    tag: "Podcast",
+    date: "September 2026",
+    title: "How Morgan State built Maryland\u2019s first AI degree in one month",
+    source: "Hard Truths in Higher Ed \u00b7 with Dr. Paul Wang",
+    href: "https://www.linkedin.com/posts/darin-francis_highered-aieducation-morganstate-ugcPost-7505960599420391424-5cEF",
+    image: "/assets/news/morgan-ai-degree-podcast.jpg",
     variant: "a",
   },
   {
-    tag: "Funding",
-    date: "Winter 2025",
-    title: "Headline placeholder for a new grant, partnership, or collaboration.",
+    tag: "Press",
+    date: "July 2026",
+    title: "Maryland universities launch AI degree programs",
+    source: "WBAL-TV 11",
+    href: "https://www.wbaltv.com/article/maryland-universities-launch-ai-degrees/73287202",
+    image: "/assets/news/wbal-ai-degrees.jpg",
+    video: "https://www.youtube.com/watch?v=7XCbx50a5Jg",
     variant: "b",
-  },
-  {
-    tag: "Field Notes",
-    date: "Fall 2025",
-    title: "Headline placeholder for an essay, demo, or release from the lab.",
-    variant: "c",
   },
 ];
 
@@ -41,47 +50,74 @@ export function NewsGrid() {
               News from the lab
             </h2>
           </div>
-          <a
-            href="#all-news"
-            className="hidden sm:inline-flex items-center gap-2 text-[13px] text-fg-soft hover:text-fg transition-colors"
-          >
-            All news
-            <ArrowIcon />
-          </a>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
           {news.map((n) => (
-            <a
+            <article
               key={n.title}
-              href="#"
-              className="card group block rounded-2xl overflow-hidden"
+              className="card group flex flex-col rounded-2xl overflow-hidden"
             >
-              <div className="aspect-[4/3] relative overflow-hidden bg-surface-2">
-                <NewsArt variant={n.variant} />
-              </div>
-              <div className="p-6">
+              <a
+                href={n.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block aspect-video relative overflow-hidden bg-surface-2"
+              >
+                {n.image ? (
+                  <Image
+                    src={n.image}
+                    alt={n.title}
+                    fill
+                    sizes="(max-width: 640px) 100vw, 50vw"
+                    className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                  />
+                ) : (
+                  <NewsArt variant={n.variant} />
+                )}
+              </a>
+              <div className="flex flex-1 flex-col p-6">
                 <div className="flex items-center gap-3 text-[10px] tracking-normal text-fg-muted">
                   <span>{n.tag}</span>
                   <span className="h-1 w-1 rounded-full bg-fg-muted/60" />
                   <span>{n.date}</span>
                 </div>
-                <h3 className="mt-3 font-display font-semibold text-[1.2rem] leading-[1.2] tracking-[-0.02em] text-balance group-hover:text-accent transition-colors">
-                  {n.title}
+                <h3 className="mt-3 font-display font-semibold text-[1.2rem] leading-[1.2] tracking-[-0.02em] text-balance">
+                  <a
+                    href={n.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hover:text-accent transition-colors"
+                  >
+                    {n.title}
+                  </a>
                 </h3>
+                <p className="mt-2 text-[12px] text-fg-muted flex-1">{n.source}</p>
+                <div className="mt-5 flex items-center gap-4 border-t border-border pt-4 text-[12.5px]">
+                  <a
+                    href={n.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 text-fg-soft hover:text-fg transition-colors"
+                  >
+                    Read more
+                    <ArrowIcon size={10} />
+                  </a>
+                  {n.video && (
+                    <a
+                      href={n.video}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1.5 text-fg-soft hover:text-fg transition-colors"
+                    >
+                      <YoutubeIcon size={15} />
+                      Watch on YouTube
+                    </a>
+                  )}
+                </div>
               </div>
-            </a>
+            </article>
           ))}
-        </div>
-
-        <div className="mt-10 flex justify-center">
-          <a
-            href="#all-news"
-            className="inline-flex items-center gap-2 rounded-full border border-border-strong px-5 py-2.5 text-[13px] text-fg-soft hover:text-fg hover:border-fg/40 transition-colors"
-          >
-            View all news
-            <ArrowIcon size={10} />
-          </a>
         </div>
       </div>
     </section>

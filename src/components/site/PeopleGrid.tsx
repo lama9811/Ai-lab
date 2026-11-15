@@ -107,6 +107,11 @@ const people: Person[] = [
       label: "LinkedIn",
     },
   },
+  {
+    name: "Mason-Terry Veal",
+    role: "Research Assistant",
+    photo: "/assets/people/mason-terry-veal.png",
+  },
 ];
 
 export function PeopleGrid() {

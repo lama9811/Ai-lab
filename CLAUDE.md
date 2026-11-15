@@ -81,7 +81,9 @@ targets.
   tint alternating by index) — the fallback for people without a headshot yet.
 - `bio` (optional one-liner) and `link` (`{ href, label }`, opens in a new tab)
   render under the role only when present. Currently only Dr. Wang has a `bio`;
-  team members use `link` for their LinkedIn.
+  team members use `link` for their LinkedIn (a few, e.g. Terell Reed and
+  Aramide Ogundiran, have no `link` yet). Every current member has a headshot,
+  so the initials-avatar fallback is not in use right now.
 - The grid is `grid-cols-2 sm:grid-cols-3 lg:grid-cols-4` with **`items-start`**
   so cards size to their own content (a taller bio card doesn't stretch the
   others).
