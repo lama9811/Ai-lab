@@ -20,11 +20,11 @@ export default function Home() {
             <Wordmark tone="paper" />
           </div>
 
-          <div className="hidden justify-self-center md:block">
+          <div className="hidden justify-self-center lg:block">
             <NavHeader />
           </div>
 
-          <div className="flex items-center gap-3 justify-self-end">
+          <div className="col-start-3 flex items-center gap-3 justify-self-end">
             <MobileMenu
               links={[
                 { label: "Research", href: "#research" },

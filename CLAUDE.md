@@ -63,7 +63,7 @@ unused/unimported.)
   and flip to `text-white` on hover (do **not** use `mix-blend-difference` — it
   renders nearly invisible on the cream background). Tabs link to page anchors
   (`#research`, `#projects`, `#people`, `#publications`, `#news`).
-- The pill is hidden below `md`; `MobileMenu` provides the small-screen menu.
+- The pill is hidden below `lg`; `MobileMenu` provides the small-screen menu (it shows below `lg`). The breakpoint is `lg` so the header logo has room beside the pill.
 - Section links must stay in sync between `nav-header.tsx` and the `MobileMenu`
   links array in `page.tsx`.
 
