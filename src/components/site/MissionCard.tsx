@@ -1,70 +1,32 @@
 export function MissionCard() {
   return (
-    <section id="lab" className="border-t border-border">
-      <div className="mx-auto max-w-[1280px] px-6 lg:px-10 py-20 lg:py-24">
-        <div className="relative overflow-hidden rounded-3xl border border-border bg-surface">
-          <MissionVisual />
-          <div className="relative px-8 py-14 lg:px-16 lg:py-20">
-            <span className="text-[10.5px] tracking-normal text-accent">
-              Lab mission
-            </span>
-            <p className="mt-5 font-display font-semibold text-[1.7rem] sm:text-[2.2rem] lg:text-[2.7rem] leading-[1.1] tracking-[-0.03em] max-w-[24ch] text-balance">
-              We study AI models that contribute to basic AI research and build
+    <section id="lab" className="bg-bg">
+      <div className="mx-auto max-w-[1280px] px-6 py-20 lg:px-10 lg:py-28">
+        <div className="grid gap-8 lg:grid-cols-[auto_1fr] lg:gap-14">
+          <svg
+            aria-hidden
+            width="88"
+            height="88"
+            viewBox="0 0 88 88"
+            className="hidden lg:block mt-3"
+          >
+            <circle cx="44" cy="44" r="43" fill="#1358C7" />
+            <path d="M14 62 L74 30" stroke="#F7901E" strokeWidth="5" strokeLinecap="round" />
+          </svg>
+          <div>
+            <p className="text-[15px] font-semibold text-brand-blue">Our mission</p>
+            <blockquote className="font-display mt-4 max-w-[22ch] text-[2rem] leading-[1.12] sm:text-[2.7rem] lg:text-[3.3rem] text-balance">
+              We study AI models that contribute to basic AI research, and build
               AI systems that interact with the real world.
+            </blockquote>
+            <p className="font-serif mt-7 max-w-[38rem] text-[1.12rem] leading-[1.7] text-fg-soft">
+              Our projects start with problems we can see on campus and in
+              Baltimore, from a robot that couldn&apos;t recognize every student
+              to air quality that tracks income and race.
             </p>
-            <a
-              href="#about"
-              className="mt-8 inline-flex items-center gap-2 rounded-full border border-border-strong px-5 py-2.5 text-[14px] text-fg-soft hover:text-fg hover:border-fg/40 transition-colors"
-            >
-              Read about the lab
-              <svg width="11" height="11" viewBox="0 0 11 11" aria-hidden>
-                <path
-                  d="M1 5.5h9M6 1.5l4 4-4 4"
-                  stroke="currentColor"
-                  strokeWidth="1.3"
-                  fill="none"
-                />
-              </svg>
-            </a>
           </div>
         </div>
       </div>
     </section>
-  );
-}
-
-function MissionVisual() {
-  return (
-    <svg
-      aria-hidden
-      className="absolute inset-0 h-full w-full opacity-70"
-      viewBox="0 0 1000 500"
-      preserveAspectRatio="xMidYMid slice"
-    >
-      <defs>
-        <radialGradient id="mglow" cx="78%" cy="18%" r="55%">
-          <stop offset="0%" stopColor="#f47937" stopOpacity="0.42" />
-          <stop offset="55%" stopColor="#1b4383" stopOpacity="0" />
-        </radialGradient>
-        <linearGradient id="mgrid" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" stopColor="#ffffff" stopOpacity="0.05" />
-          <stop offset="100%" stopColor="#ffffff" stopOpacity="0" />
-        </linearGradient>
-      </defs>
-      <rect width="1000" height="500" fill="url(#mglow)" />
-      <g stroke="url(#mgrid)" strokeWidth="0.5">
-        {Array.from({ length: 20 }).map((_, i) => (
-          <line key={`v${i}`} x1={i * 52} y1="0" x2={i * 52} y2="500" />
-        ))}
-        {Array.from({ length: 10 }).map((_, i) => (
-          <line key={`h${i}`} x1="0" y1={i * 52} x2="1000" y2={i * 52} />
-        ))}
-      </g>
-      <g stroke="#f47937" strokeOpacity="0.22" strokeWidth="0.7" fill="none">
-        {Array.from({ length: 9 }).map((_, i) => (
-          <circle key={i} cx="800" cy="110" r={24 + i * 30} />
-        ))}
-      </g>
-    </svg>
   );
 }

@@ -1,29 +1,34 @@
 @import "tailwindcss";
 
+/*
+ * Applied AI Lab theme — colors come from the lab logo.
+ *   ink    #0B1B3F  deep navy: hero, footer, primary text
+ *   blue   #1358C7  logo blue: links, active states, icons
+ *   orange #F7901E  logo slash: one accent, used for fills and graphics only
+ *                   (orange text on white fails contrast — use --accent-ink)
+ *   paper  #FFFFFF / mist #EEF2F8  cool light surfaces
+ */
 :root {
-  /* Light "Next:well" surfaces — warm cream */
-  --bg: #f4f2ec;
-  --bg-2: #efece4;
-  --surface: #faf9f5;
-  --surface-2: #efece4;
-  --surface-3: #e7e3d8;
+  --bg: #ffffff;
+  --bg-2: #eef2f8;
+  --surface: #ffffff;
+  --surface-2: #f3f6fb;
+  --surface-3: #e3e9f3;
 
-  /* Borders */
-  --border: rgba(22, 20, 13, 0.1);
-  --border-strong: rgba(22, 20, 13, 0.2);
+  --border: rgba(11, 27, 63, 0.11);
+  --border-strong: rgba(11, 27, 63, 0.22);
 
-  /* Text — warm near-black */
-  --fg: #17160f;
-  --fg-soft: #4c4a40;
-  --fg-muted: #8a877d;
+  --fg: #0b1b3f;
+  --fg-soft: #3b4862;
+  --fg-muted: #65708a;
 
-  /* Morgan State brand */
-  --brand-blue: #1b4383; /* Morgan Blue — Pantone 288 */
-  --brand-blue-soft: #15356a;
-  --accent: #f47937; /* Morgan Orange — Pantone 1655 */
-  --accent-soft: #e0631f;
-  --accent-glow: rgba(244, 121, 55, 0.16);
-  --gold: #f47937;
+  --ink: #0b1b3f;
+  --ink-2: #13285a;
+  --brand-blue: #1358c7;
+  --brand-blue-soft: #0e46a3;
+  --accent: #f7901e;
+  --accent-soft: #e57d0a;
+  --accent-ink: #a65400;
 }
 
 @theme inline {
@@ -37,35 +42,43 @@
   --color-fg: var(--fg);
   --color-fg-soft: var(--fg-soft);
   --color-fg-muted: var(--fg-muted);
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
   --color-accent: var(--accent);
   --color-accent-soft: var(--accent-soft);
-  --color-gold: var(--gold);
+  --color-accent-ink: var(--accent-ink);
   --color-brand-blue: var(--brand-blue);
   --color-brand-blue-soft: var(--brand-blue-soft);
 
-  --font-sans: var(--font-sans);
+  --font-sans: var(--font-archivo);
+  --font-serif: var(--font-source-serif);
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 6rem;
 }
 
 html,
 body {
   background: var(--bg);
   color: var(--fg);
-  font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+  font-family: var(--font-archivo), ui-sans-serif, system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }
 
-/* Display / heading face — Space Grotesk */
+/* Headline face: Archivo, set slightly expanded and heavy. */
 .font-display {
-  font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
-  letter-spacing: -0.03em;
+  font-family: var(--font-archivo), ui-sans-serif, system-ui, sans-serif;
+  font-variation-settings: "wdth" 112;
+  font-weight: 700;
+  letter-spacing: -0.025em;
 }
 
-.font-geist,
-.font-mono {
-  font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
-  letter-spacing: normal;
-  text-transform: none;
+/* Reading face for paragraphs: Source Serif 4. */
+.font-serif {
+  font-family: var(--font-source-serif), ui-serif, Georgia, serif;
 }
 
 ::selection {
@@ -73,94 +86,44 @@ body {
   color: #fff;
 }
 
-/* Morgan Blue pill button (primary) */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* Primary button: logo orange with navy text (AA contrast). */
+.btn-primary {
+  background: var(--accent);
+  color: var(--ink);
+  transition: background 0.2s ease;
+}
+.btn-primary:hover {
+  background: #ffa23d;
+}
+
+/* Blue button for light sections. */
 .btn-dark {
   background: var(--brand-blue);
   color: #fff;
-  transition: background 0.2s ease, transform 0.2s ease;
+  transition: background 0.2s ease;
 }
 .btn-dark:hover {
   background: var(--brand-blue-soft);
 }
 
-/* Faint warm radial wash for light sections */
-.glow {
-  background: radial-gradient(
-    55% 55% at 50% 0%,
-    var(--accent-glow) 0%,
-    transparent 70%
-  );
+/* Fine dot grid used behind figures and the hero. */
+.dot-grid {
+  background-image: radial-gradient(var(--border-strong) 1px, transparent 1px);
+  background-size: 18px 18px;
 }
-
-/* Faint grid backdrop */
-.grid-bg {
-  background-image: linear-gradient(
-      to right,
-      var(--border) 1px,
-      transparent 1px
-    ),
-    linear-gradient(to bottom, var(--border) 1px, transparent 1px);
-  background-size: 56px 56px;
-  -webkit-mask-image: radial-gradient(
-    60% 60% at 50% 25%,
-    #000 0%,
-    transparent 75%
-  );
-  mask-image: radial-gradient(60% 60% at 50% 25%, #000 0%, transparent 75%);
-}
-
-/* Cards */
-.card {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  transition: border-color 0.25s ease, box-shadow 0.25s ease,
-    transform 0.25s ease;
-}
-.card:hover {
-  border-color: var(--border-strong);
-  box-shadow: 0 18px 40px -28px rgba(22, 20, 13, 0.4);
-}
-
-/* Warm orange abstract tile (mimics Next:well decorative image, our own graphic) */
-.tile-orange {
-  background: radial-gradient(
-      120% 120% at 20% 10%,
-      #ffd2a8 0%,
-      #f47937 38%,
-      #d4561c 78%,
-      #7a2e0c 100%
-    );
-}
-
-.hairline {
-  border-color: var(--border);
-}
-
-/* 3D tilt + float for project cards */
-@keyframes float-bob {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-9px);
-  }
-}
-
-.tilt-float {
-  animation: float-bob 6.5s ease-in-out infinite;
-  will-change: transform;
-}
-
-.tilt-inner {
-  will-change: transform;
+.dot-grid-dark {
+  background-image: radial-gradient(rgba(255, 255, 255, 0.12) 1px, transparent 1px);
+  background-size: 22px 22px;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .tilt-float {
-    animation: none;
-  }
-  .tilt-inner {
-    transform: none !important;
+  html {
+    scroll-behavior: auto;
   }
 }

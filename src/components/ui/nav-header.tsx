@@ -13,7 +13,7 @@ const links = [
   { label: "Research", href: "#research" },
   { label: "Projects", href: "#projects" },
   { label: "People", href: "#people" },
-  { label: "Publications", href: "#publications" },
+  { label: "Presentations", href: "#publications" },
   { label: "News", href: "#news" },
 ];
 
@@ -26,7 +26,7 @@ function NavHeader() {
 
   return (
     <ul
-      className="relative mx-auto flex w-fit rounded-full border border-border-strong bg-surface p-1 shadow-sm"
+      className="relative mx-auto flex w-fit rounded-full bg-surface-2 p-1 ring-1 ring-border"
       onMouseLeave={() => setPosition((pv) => ({ ...pv, opacity: 0 }))}
     >
       {links.map((link) => (
@@ -68,7 +68,7 @@ const Tab = ({
     >
       <a
         href={href}
-        className="block cursor-pointer px-3 py-1.5 text-xs font-medium uppercase tracking-wide text-fg-soft transition-colors duration-200 hover:text-white md:px-5 md:py-2.5 md:text-sm"
+        className="block cursor-pointer px-3 py-1.5 text-[14px] font-medium text-fg-soft transition-colors duration-200 hover:text-white md:px-4 md:py-2 xl:px-5"
       >
         {children}
       </a>
@@ -81,7 +81,7 @@ const Cursor = ({ position }: { position: Position }) => {
     <motion.li
       animate={position}
       transition={{ type: "spring", stiffness: 400, damping: 32 }}
-      className="absolute z-0 h-7 rounded-full bg-brand-blue md:h-10"
+      className="absolute z-0 h-7 rounded-full bg-ink md:h-9"
     />
   );
 };
