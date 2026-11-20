@@ -33,10 +33,12 @@ Department of Computer Science.
 - `public/assets/brand/` — brand imagery. `applied-ai-lab-logo.png` (transparent lab logo) is rendered by `Wordmark` in the header; `applied-ai-lab-mark.png` (the circular "AI" mark alone) is used in the footer. The favicon is `src/app/icon.png` (same mark).
 - `public/assets/people/` — team headshots used by `PeopleGrid` (one PNG per
   person, e.g. `paul-wang.png`).
-- `public/assets/projects/` — project imagery used by `PublicationList` and the hero.
-  Most images are small (165–360px wide), so cards show them at natural size as
-  framed "figures" on a dot-grid panel; images ≥1000px wide (csNavigator, Robi)
-  fill the panel instead. Larger originals would let more cards go full-bleed.
+- `public/assets/projects/` — project imagery used by `PublicationList`, the hero,
+  and the research-area cards. Project cards fill their image panel: photos use
+  `object-cover object-top`; charts set `fit: "contain"` in `lab-data.ts` and show
+  whole on white. Most originals are small (165–360px wide) and look soft at
+  card size — replacing a file with a larger one of the **same name** sharpens it
+  with no code change.
 - `src/components/site/lab-data.ts` — shared `areas` (4 research areas) and
   `projects` data. Each project has an `id` (its page anchor) and `areas: AreaKey[]`.
   `ResearchAreas` renders each area as a card topped by a photo (`area.image`,
@@ -64,7 +66,9 @@ via Tailwind utilities rather than raw colors:
 - Buttons: `.btn-primary` (orange pill, navy text), `.btn-dark` (blue pill).
 - Fonts (set up in `layout.tsx` via `next/font`): **Archivo** (`--font-archivo`,
   with the `wdth` axis) for UI and headings — `.font-display` sets it heavy and
-  slightly expanded; **Source Serif 4** (`.font-serif`) for paragraph text.
+  slightly expanded; **Source Serif 4** (`.font-serif`) for paragraph text in
+  sections. Exception: the hero paragraph is sans-serif (user preference, to
+  match the original site).
 - Motion: the site is intentionally static — no load, scroll, or ambient
   animations (the user tried a 3D/animated hero and asked to remove it). The only
   motion is in response to the user: the nav pill cursor, hover color changes,
@@ -72,6 +76,22 @@ via Tailwind utilities rather than raw colors:
 - Copy style: sentence case, no all-caps eyebrow labels, no `·`-joined meta strings.
 - Next 16: `next/image`'s `priority` is deprecated — use `loading="eager"`
   (plus `fetchPriority="high"` for the LCP image).
+
+## Hero
+
+`src/components/site/Hero.tsx` — navy section, static (no animation):
+
+- Headline is three stacked lines, **"AI Research" / orange serif-italic "&" /
+  "Development"**. The `<h1>` is `w-fit` so the "&" centers under the widest
+  line; "AI Research" has `pl-[0.3em]` to sit visually centered. The `<h1>`
+  carries `aria-label="AI Research and Development"` (the spans are
+  `aria-hidden`). This exact wording/layout was requested — keep it.
+- Then "Lab Director: Dr. Paul Wang" (with photo), Dr. Wang's research paragraph
+  (verbatim from him — don't reword), two buttons, and `HeroFigures`
+  (csNavigator + Robi screenshots with the logo's orange slash behind them).
+- Stats row (`facts`): $1M+, 822,226, 9, 32 — Dr. Wang updated these on `main`.
+- "Research supported by" funder strip at the bottom: **white background**, orange
+  top border, navy label, funder names in logo blue in a bordered 5-cell grid.
 
 ## Navigation
 
@@ -113,3 +133,31 @@ button); everyone else goes in the team grid below it.
   with **`items-start`**; portraits are cropped to 4:5.
 - To add/replace a person: drop a square PNG in `public/assets/people/` and add
   or edit one entry in the array — no JSX changes needed.
+
+## Content ownership
+
+Dr. Paul Wang (GitHub `p-neumann`) edits copy directly on `main` (research-area
+wording, hero paragraph, stats). Before starting work, `git fetch` and branch
+from the latest `origin/main`; when a long-lived branch conflicts with his
+edits, keep his wording (port it into the current component structure rather
+than dropping it). Research-area titles/blurbs live in `lab-data.ts` now, not
+in `ResearchAreas.tsx`.
+
+## Deployment
+
+- **Vercel** project `ai-lab` is connected to the GitHub repo `lama9811/Ai-lab`.
+  Every push to a non-`main` branch gets a **Preview** deployment (link in the
+  "Vercel" status check on the commit/PR); merging into **`main` deploys
+  Production** to `https://ai-lab-three-tawny.vercel.app/` within about a minute.
+- **Custom domain `https://aai.trustworthyai.ai/` is NOT on Vercel.** DNS points
+  to IONOS (`74.208.236.196`, Apache), which serves a frameset whose single frame
+  loads the Vercel production URL ("frame/masked forwarding"). It updates
+  automatically because the frame always shows the latest production build.
+  Downsides: poor SEO/link previews, the address bar never changes, and anchor
+  links can't be shared. Recommended fix (done by the user, not in code): add
+  the domain in Vercel → Settings → Domains, then at IONOS remove forwarding on
+  `aai` and replace its A record with the CNAME Vercel gives
+  (normally `cname.vercel-dns.com`). Verify with
+  `curl -sI https://aai.trustworthyai.ai/` → `server: Vercel`.
+- `gh` CLI is not installed locally; read deployment/check status via the public
+  GitHub API (`/repos/lama9811/Ai-lab/commits/<sha>/statuses`).
