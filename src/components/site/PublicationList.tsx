@@ -149,7 +149,7 @@ function Featured({ project: p }: { project: Project }) {
 }
 
 function ProjectCard({ project: p, wide = false }: { project: Project; wide?: boolean }) {
-  const large = p.image.width >= 1000;
+  const chart = p.image.fit === "contain";
   return (
     <article
       id={p.id}
@@ -159,27 +159,17 @@ function ProjectCard({ project: p, wide = false }: { project: Project; wide?: bo
     >
       <figure className={`relative ${wide ? "xl:w-1/2 xl:shrink-0" : ""}`}>
         <div
-          className={`dot-grid relative flex h-56 items-center justify-center overflow-hidden bg-surface-2 ${
-            wide ? "xl:h-full xl:min-h-[22rem]" : ""
+          className={`relative h-64 overflow-hidden ${chart ? "bg-white" : "bg-surface-3"} ${
+            wide ? "xl:h-full xl:min-h-[24rem]" : ""
           }`}
         >
-          {large ? (
-            <Image
-              src={p.image.src}
-              alt={p.image.alt}
-              fill
-              sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 600px"
-              className="object-contain p-4 mix-blend-multiply"
-            />
-          ) : (
-            <Image
-              src={p.image.src}
-              alt={p.image.alt}
-              width={p.image.width}
-              height={p.image.height}
-              className="max-h-44 w-auto max-w-[75%] rounded-md bg-white object-contain p-1.5 shadow-[0_12px_30px_-16px_rgba(11,27,63,0.5)] ring-1 ring-border"
-            />
-          )}
+          <Image
+            src={p.image.src}
+            alt={p.image.alt}
+            fill
+            sizes={wide ? "(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 600px" : "(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 400px"}
+            className={chart ? "object-contain p-3" : "object-cover object-top"}
+          />
         </div>
         <figcaption className="sr-only">{p.image.alt}</figcaption>
       </figure>

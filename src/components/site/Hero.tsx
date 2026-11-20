@@ -20,8 +20,18 @@ export function Hero() {
             <p className="text-[15px] text-white/70">
               Department of Computer Science, Morgan State University
             </p>
-            <h1 className="font-display mt-5 text-[2.75rem] leading-[1.02] sm:text-[3.9rem] lg:text-[4.6rem] text-balance">
-              AI Research and Development
+            <h1
+              aria-label="AI Research and Development"
+              className="font-display mt-5 w-fit text-[2.75rem] leading-[1.02] sm:text-[3.9rem] lg:text-[4.6rem]"
+            >
+              <span aria-hidden className="block pl-[0.3em]">AI Research</span>
+              <span
+                aria-hidden
+                className="font-serif block py-1 text-center text-[1.15em] font-normal italic leading-[0.9] text-accent"
+              >
+                &amp;
+              </span>
+              <span aria-hidden className="block">Development</span>
             </h1>
 
             <div className="mt-7 flex items-center gap-3.5">
@@ -37,7 +47,7 @@ export function Hero() {
               </p>
             </div>
 
-            <p className="font-serif mt-7 max-w-[36rem] text-[1.12rem] leading-[1.65] text-white/80 sm:text-[1.2rem]">
+            <p className="mt-7 max-w-[36rem] text-[1.05rem] leading-[1.65] text-white/80 sm:text-[1.15rem]">
               We conduct research and development in AI models, reinforcement
               learning, Markov Decision Process, agentic AI, multimodal AI, AI in
               cybersecurity, and quantum AI — with work presented at Princeton,

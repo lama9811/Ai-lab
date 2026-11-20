@@ -59,7 +59,8 @@ export type Project = {
   github?: string;
   live?: string;
   video?: string;
-  image: { src: string; width: number; height: number; alt: string };
+  /** `fit: "contain"` shows the whole image on white (charts); default fills the panel. */
+  image: { src: string; width: number; height: number; alt: string; fit?: "cover" | "contain" };
 };
 
 export const projects: Project[] = [
@@ -132,6 +133,7 @@ export const projects: Project[] = [
       width: 237,
       height: 178,
       alt: "Chart of air-quality exposure by income and race in Baltimore",
+      fit: "contain",
     },
   },
   {
@@ -148,6 +150,7 @@ export const projects: Project[] = [
       width: 218,
       height: 135,
       alt: "Scatter plots of classified security events",
+      fit: "contain",
     },
   },
   {
@@ -181,6 +184,7 @@ export const projects: Project[] = [
       width: 165,
       height: 189,
       alt: "Bloch sphere with sampled quantum states",
+      fit: "contain",
     },
   },
   {
