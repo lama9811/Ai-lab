@@ -30,7 +30,7 @@ Department of Computer Science.
   Wordmark, MobileMenu, etc.).
 - `src/components/ui/` — reusable, self-owned primitives (shadcn-style convention).
   Drop generic/copy-in components here, not in `site/`.
-- `public/assets/brand/` — brand imagery (e.g. `msu-tower.png` used by `Wordmark`).
+- `public/assets/brand/` — brand imagery. `applied-ai-lab-logo.png` (transparent lab logo) is rendered by `Wordmark` in the header and footer; `applied-ai-lab-mark.png` is the circular "AI" mark alone. The favicon is `src/app/icon.png` (same mark).
 - `public/assets/people/` — team headshots used by `PeopleGrid` (one PNG per
   person, e.g. `paul-wang.png`).
 - `public/assets/projects/` — project card imagery used by `PublicationList`.

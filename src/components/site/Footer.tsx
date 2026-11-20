@@ -21,7 +21,7 @@ export function Footer() {
       <div className="mx-auto max-w-[1280px] px-6 lg:px-10 pt-20 pb-10">
         <div className="grid grid-cols-12 gap-10 mb-16">
           <div className="col-span-12 lg:col-span-5">
-            <Wordmark tone="paper" />
+            <Wordmark tone="paper" className="h-16 w-auto sm:h-20" />
             <p className="mt-5 max-w-md text-[14px] leading-[1.65] text-fg-soft">
               The Applied AI Lab is a research group inside the Department of
               Computer Science at Morgan State University, building agentic,
