@@ -1,273 +1,241 @@
+"use client";
+
 import Image from "next/image";
-import { GithubIcon, ExternalIcon, YoutubeIcon, ArrowIcon } from "./Icons";
-import { CsNavigatorTile } from "./CsNavigatorTile";
-import { TiltCard } from "./TiltCard";
+import { useEffect, useState } from "react";
+import { AnimatePresence, MotionConfig, motion } from "framer-motion";
+import { GithubIcon, ExternalIcon, YoutubeIcon } from "./Icons";
+import { areas, projects, type AreaKey, type Project } from "./lab-data";
 
-type Row = {
-  date: string;
-  number: string;
-  title: string;
-  authors: string;
-  summary: string;
-  tag: string;
-  badge?: string;
-  href: string;
-  github?: string;
-  live?: string;
-  video?: string;
-  image?: string;
-};
+type Filter = "all" | AreaKey;
 
-const projects: Row[] = [
-  {
-    date: "2026",
-    number: "01",
-    title: "csNavigator — Agentic AI for Student Advising",
-    authors: "Department of Computer Science · Paul Wang (PI)",
-    summary:
-      "A 24/7 multimodal advising agent built on Google Gemini 3. Text, image, audio, and video flow through a single reasoning loop, grounded in departmental resources that general-purpose chatbots can’t see. Presented at Princeton and AAAS.",
-    tag: "Agentic AI",
-    badge: "Live",
-    href: "#csnavigator",
-    github: "https://github.com/lama9811/cs.inavigator.ai",
-    live: "https://cs.inavigator.ai",
-    image: "/assets/projects/csnavigator.png",
-  },
-  {
-    date: "2025",
-    number: "02",
-    title: "AI Bias Detection and Mitigation",
-    authors: "Morgan State CS · Student-led research",
-    summary:
-      "A $14K humanoid robot recognized students with lighter skin and missed everyone else. We traced the failure to a training set missing entire demographic groups and rebuilt it. End to end mitigation, not just identification.",
-    tag: "Computer Vision",
-    href: "#bias",
-    github: "https://github.com/theaayushstha1/Nao-OpenAI-2.0",
-    image: "/assets/projects/image2.jpeg",
-  },
-  {
-    date: "2025",
-    number: "03",
-    title: "Robi Counselor — AI for Student Wellbeing",
-    authors: "Morgan State CS · Department of Computer Science",
-    summary:
-      "An autonomous, confidential companion that helps students manage stress, anxiety, and panic through conversation, visual interaction, and guided physical activity. Built on CBT and cognitive-behavioral models for in-the-moment support.",
-    tag: "Health & Mind",
-    href: "#robi",
-    github: "https://github.com/theaayushstha1/nao-sagecbt",
-    video: "https://youtu.be/wZOuK8Sw6gA",
-    image: "/assets/projects/robi-counselor-robot.png",
-  },
-  {
-    date: "2025",
-    number: "04",
-    title: "Baltimore Air Quality — Social Injustice ML Analysis",
-    authors: "Morgan State CS · Bezos Earth Fund · $1M grant",
-    summary:
-      "One of the largest environmental data platforms in the country, surfacing a direct connection between air quality, income, and race in Baltimore. Presented at Harvard Kennedy School and Yale’s AI Symposium with the aim of shaping public policy.",
-    tag: "Environmental ML",
-    badge: "Bezos $1M",
-    href: "#air-quality",
-    image: "/assets/projects/image3.png",
-  },
-  {
-    date: "2025",
-    number: "05",
-    title: "Machine Learning for Cybersecurity Threat Analysis",
-    authors: "Morgan State CS · Corporate-funded research",
-    summary:
-      "Supervised models trained on 822,226 healthcare IT records sourced from AWS, surfacing threats with practical accuracy. Shipped as an application alongside peer-reviewed publications and conference presentations.",
-    tag: "Cybersecurity",
-    href: "#cybersecurity",
-    image: "/assets/projects/image4.png",
-  },
-  {
-    date: "2024",
-    number: "06",
-    title: "Higgin — Machine Learning Against Social Injustice",
-    authors: "Morgan State CS · Mobile research",
-    summary:
-      "After a couple of color received a six-figure undervaluation on a California home appraisal, we shipped Higgin: a mobile app that transforms voice into any preferred profile. Dual use for accessibility, translation, and field communication.",
-    tag: "Voice ML",
-    href: "#higgin",
-    image: "/assets/projects/image5.png",
-  },
-  {
-    date: "Ongoing",
-    number: "07",
-    title: "Quantum AI — QML for Real World Compute Bottlenecks",
-    authors: "Morgan State Quantum Group · in collaboration with Yale",
-    summary:
-      "Applying quantum theory to machine learning, with an early focus on environmental exposure modeling and community-health computation. Backed by NSF (2329053, 2502912) and USAF (FA9550-25-1-0030); two additional proposals pending.",
-    tag: "Quantum ML",
-    badge: "NSF · USAF",
-    href: "#quantum-ai",
-    image: "/assets/projects/image6.png",
-  },
-  {
-    date: "Ongoing",
-    number: "08",
-    title: "QGP — Quantum Good Authentication Protocol",
-    authors: "Morgan State CS · Paul Wang (PI)",
-    summary:
-      "A network protocol that adds a photonic quantum channel beneath the OSI stack (layer 0) and Dilithium post-quantum signatures at the top (layer 7). Hardware-tested in-lab as a foundation for next-generation secure quantum internet.",
-    tag: "Quantum Security",
-    badge: "Patent Pending",
-    href: "#qgp",
-    image: "/assets/projects/image7.png",
-  },
-];
+const WIDE = ["robi", "qgp"];
 
 export function PublicationList() {
+  const [filter, setFilter] = useState<Filter>("all");
+
+  // A research-area link can point at a project the current filter hides.
+  // Reset to "all" so the jump always lands on a visible card.
+  useEffect(() => {
+    const onHash = () => {
+      const id = window.location.hash.slice(1);
+      const target = projects.find((p) => p.id === id);
+      if (target && filter !== "all" && !target.areas.includes(filter)) {
+        setFilter("all");
+        requestAnimationFrame(() =>
+          document.getElementById(id)?.scrollIntoView({ block: "start" }),
+        );
+      }
+    };
+    window.addEventListener("hashchange", onHash);
+    return () => window.removeEventListener("hashchange", onHash);
+  }, [filter]);
+
+  const [featured, ...rest] = projects;
+  const visible = rest.filter((p) => filter === "all" || p.areas.includes(filter));
+  const showFeatured = filter === "all" || featured.areas.includes(filter);
+  // In the full list, two projects span two columns so the 3-column rows fill evenly.
+  const isWide = (id: string) => filter === "all" && WIDE.includes(id);
+
   return (
-    <section
-      id="projects"
-      className="relative border-t border-border overflow-hidden"
-    >
-      <div aria-hidden className="pointer-events-none absolute inset-0 glow opacity-50" />
-      <div className="relative mx-auto max-w-[1280px] px-6 lg:px-10 py-20 lg:py-28">
-        <div className="flex items-end justify-between mb-12 gap-6">
-          <div>
-            <span className="text-[10.5px] tracking-normal text-accent">
-              Selected work
-            </span>
-            <h2 className="font-display font-semibold text-[2rem] sm:text-[2.6rem] lg:text-[3.2rem] leading-[1.03] tracking-[-0.03em] mt-3">
-              Research from the lab
-            </h2>
+    <MotionConfig reducedMotion="user">
+      <section id="projects" className="bg-bg-2">
+        <div className="mx-auto max-w-[1280px] px-6 py-20 lg:px-10 lg:py-28">
+          <div className="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
+            <div>
+              <h2 className="font-display text-[2.3rem] leading-[1.05] sm:text-[3rem]">
+                Selected projects
+              </h2>
+              <p className="font-serif mt-4 max-w-[36rem] text-[1.12rem] leading-[1.7] text-fg-soft">
+                Each one started with a real problem on campus or in Baltimore,
+                and most are running outside the lab today.
+              </p>
+            </div>
+
+            <div role="group" aria-label="Filter projects by research area" className="flex flex-wrap gap-2">
+              <FilterButton active={filter === "all"} onClick={() => setFilter("all")}>
+                All projects
+              </FilterButton>
+              {areas.map((a) => (
+                <FilterButton
+                  key={a.key}
+                  active={filter === a.key}
+                  onClick={() => setFilter(a.key)}
+                >
+                  {a.short}
+                </FilterButton>
+              ))}
+            </div>
           </div>
-          <a
-            href="#all"
-            className="hidden sm:inline-flex items-center gap-2 text-[13px] text-fg-soft hover:text-fg transition-colors"
-          >
-            View all
-            <ArrowIcon />
-          </a>
+
+          {showFeatured && <Featured project={featured} />}
+
+          <motion.ul layout className="mt-6 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+            <AnimatePresence mode="popLayout" initial={false}>
+              {visible.map((p) => (
+                <motion.li
+                  key={p.id}
+                  layout
+                  initial={{ opacity: 0, scale: 0.97 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.97 }}
+                  transition={{ duration: 0.25 }}
+                  className={isWide(p.id) ? "xl:col-span-2" : undefined}
+                >
+                  <ProjectCard project={p} wide={isWide(p.id)} />
+                </motion.li>
+              ))}
+            </AnimatePresence>
+          </motion.ul>
         </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-          {projects.map((row, i) => (
-            <TiltCard key={row.number} index={i} className="h-full">
-            <article
-              className="card rounded-2xl overflow-hidden flex flex-col group h-full"
-            >
-              <a href={row.href} className="block relative aspect-video overflow-hidden bg-surface-2">
-                {row.image ? (
-                  <>
-                    <Image
-                      src={row.image}
-                      alt={row.title}
-                      fill
-                      sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
-                      className="object-cover transition-transform duration-500 group-hover:scale-[1.04]"
-                      unoptimized={row.image.startsWith("http")}
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-transparent to-transparent" />
-                  </>
-                ) : (
-                  <CsNavigatorTile />
-                )}
-                <div className="absolute left-3 top-3 flex flex-wrap gap-1.5">
-                  <span className="inline-flex items-center rounded-full bg-black/60 backdrop-blur px-2.5 py-1 text-[9.5px] tracking-normal text-white border border-white/10">
-                    {row.tag}
-                  </span>
-                  {row.badge && (
-                    <span className="inline-flex items-center rounded-full bg-accent px-2.5 py-1 text-[9.5px] tracking-normal text-white">
-                      {row.badge}
-                    </span>
-                  )}
-                </div>
-                <span className="absolute right-3 bottom-3 inline-flex items-center rounded-full bg-black/55 backdrop-blur px-2 py-0.5 text-[10.5px] text-white/85">
-                  {row.date}
-                </span>
-              </a>
-
-              <div className="flex flex-1 flex-col p-6">
-                <h3 className="font-display font-semibold text-[1.22rem] leading-[1.18] tracking-[-0.02em] text-balance">
-                  <a href={row.href} className="hover:text-accent transition-colors">
-                    {row.title}
-                  </a>
-                </h3>
-                <p className="mt-2 text-[11.5px] tracking-normal text-fg-muted">
-                  {row.authors}
-                </p>
-                <p className="mt-3 text-[13px] leading-[1.6] text-fg-soft flex-1">
-                  {row.summary}
-                </p>
-
-                <div className="mt-5 flex items-center justify-between border-t border-border pt-4">
-                  <ActionRow github={row.github} live={row.live} video={row.video} />
-                  <a
-                    href={row.href}
-                    className="inline-flex items-center gap-1.5 text-[12.5px] text-fg-soft hover:text-fg transition-colors"
-                  >
-                    View project
-                    <ArrowIcon size={10} />
-                  </a>
-                </div>
-              </div>
-            </article>
-            </TiltCard>
-          ))}
-        </div>
-
-        <div className="mt-12 flex justify-center">
-          <a
-            href="#all"
-            className="inline-flex items-center gap-2 rounded-full border border-border-strong px-5 py-2.5 text-[13px] text-fg-soft hover:text-fg hover:border-fg/40 transition-colors"
-          >
-            View all projects
-            <ArrowIcon size={10} />
-          </a>
-        </div>
-      </div>
-    </section>
+      </section>
+    </MotionConfig>
   );
 }
 
-function ActionRow({
-  github,
-  live,
-  video,
+function FilterButton({
+  active,
+  onClick,
+  children,
 }: {
-  github?: string;
-  live?: string;
-  video?: string;
+  active: boolean;
+  onClick: () => void;
+  children: React.ReactNode;
 }) {
   return (
-    <div className="flex items-center gap-2">
-      <ActionSlot href={github} label="View source on GitHub">
-        <GithubIcon size={15} />
-      </ActionSlot>
-      <ActionSlot href={live} label="Open live site">
-        <ExternalIcon size={13} />
-      </ActionSlot>
-      <ActionSlot href={video} label="Watch demo on YouTube">
-        <YoutubeIcon size={16} />
-      </ActionSlot>
+    <button
+      type="button"
+      aria-pressed={active}
+      onClick={onClick}
+      className={`rounded-full px-4 py-2 text-[14px] font-medium transition-colors ${
+        active
+          ? "bg-ink text-white"
+          : "bg-white text-fg-soft ring-1 ring-border-strong hover:text-fg hover:ring-fg/40"
+      }`}
+    >
+      {children}
+    </button>
+  );
+}
+
+function Featured({ project: p }: { project: Project }) {
+  return (
+    <article
+      id={p.id}
+      className="mt-12 grid overflow-hidden rounded-2xl bg-white ring-1 ring-border lg:grid-cols-[1.25fr_1fr]"
+    >
+      <div className="relative bg-surface-3 p-4 sm:p-8">
+        <Image
+          src={p.image.src}
+          alt={p.image.alt}
+          width={p.image.width}
+          height={p.image.height}
+          sizes="(max-width: 1024px) 100vw, 700px"
+          className="h-auto w-full rounded-lg shadow-[0_20px_50px_-24px_rgba(11,27,63,0.45)] ring-1 ring-border"
+        />
+      </div>
+      <div className="flex flex-col p-7 sm:p-10">
+        <Meta project={p} />
+        <h3 className="font-display mt-4 text-[1.8rem] leading-[1.1] sm:text-[2.2rem] text-balance">
+          {p.title}
+        </h3>
+        <p className="mt-3 text-[14px] text-fg-muted">{p.credit}</p>
+        <p className="font-serif mt-5 text-[1.08rem] leading-[1.7] text-fg-soft">{p.summary}</p>
+        <div className="mt-auto pt-8">
+          <Links project={p} prominent />
+        </div>
+      </div>
+    </article>
+  );
+}
+
+function ProjectCard({ project: p, wide = false }: { project: Project; wide?: boolean }) {
+  const large = p.image.width >= 1000;
+  return (
+    <article
+      id={p.id}
+      className={`flex h-full flex-col overflow-hidden rounded-xl bg-white ring-1 ring-border ${
+        wide ? "xl:flex-row" : ""
+      }`}
+    >
+      <figure className={`relative ${wide ? "xl:w-1/2 xl:shrink-0" : ""}`}>
+        <div
+          className={`dot-grid relative flex h-56 items-center justify-center overflow-hidden bg-surface-2 ${
+            wide ? "xl:h-full xl:min-h-[22rem]" : ""
+          }`}
+        >
+          {large ? (
+            <Image
+              src={p.image.src}
+              alt={p.image.alt}
+              fill
+              sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 600px"
+              className="object-contain p-4 mix-blend-multiply"
+            />
+          ) : (
+            <Image
+              src={p.image.src}
+              alt={p.image.alt}
+              width={p.image.width}
+              height={p.image.height}
+              className="max-h-44 w-auto max-w-[75%] rounded-md bg-white object-contain p-1.5 shadow-[0_12px_30px_-16px_rgba(11,27,63,0.5)] ring-1 ring-border"
+            />
+          )}
+        </div>
+        <figcaption className="sr-only">{p.image.alt}</figcaption>
+      </figure>
+      <div className="flex flex-1 flex-col p-6">
+        <Meta project={p} />
+        <h3 className="font-display mt-3 text-[1.25rem] leading-[1.2] text-balance">{p.title}</h3>
+        <p className="mt-2 text-[13px] text-fg-muted">{p.credit}</p>
+        <p className="font-serif mt-4 flex-1 text-[1rem] leading-[1.65] text-fg-soft">{p.summary}</p>
+        <Links project={p} />
+      </div>
+    </article>
+  );
+}
+
+function Meta({ project: p }: { project: Project }) {
+  const names = p.areas.map((k) => areas.find((a) => a.key === k)?.short).filter(Boolean);
+  return (
+    <div className="flex flex-wrap items-center gap-2 text-[13px]">
+      <span className="font-semibold text-brand-blue">{names.join(", ")}</span>
+      <span className="text-fg-muted">{p.year}</span>
+      {p.badge && (
+        <span className="rounded-full bg-accent/15 px-2.5 py-0.5 font-semibold text-accent-ink">
+          {p.badge}
+        </span>
+      )}
     </div>
   );
 }
 
-function ActionSlot({
-  href,
-  label,
-  children,
-}: {
-  href?: string;
-  label: string;
-  children: React.ReactNode;
-}) {
-  if (!href) return null;
+function Links({ project: p, prominent = false }: { project: Project; prominent?: boolean }) {
+  const items = [
+    p.live && { href: p.live, label: "Open live site", icon: <ExternalIcon size={13} /> },
+    p.github && { href: p.github, label: "View code", icon: <GithubIcon size={15} /> },
+    p.video && { href: p.video, label: "Watch demo", icon: <YoutubeIcon size={16} /> },
+  ].filter(Boolean) as { href: string; label: string; icon: React.ReactNode }[];
+
+  if (items.length === 0) return null;
+
   return (
-    <a
-      href={href}
-      aria-label={label}
-      title={label}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="inline-flex items-center justify-center h-8 w-8 rounded-lg border border-border text-fg-soft hover:text-white hover:bg-accent hover:border-accent transition-colors"
-    >
-      {children}
-    </a>
+    <div className={`flex flex-wrap gap-2 ${prominent ? "" : "mt-6 border-t border-border pt-4"}`}>
+      {items.map((it, i) => (
+        <a
+          key={it.href}
+          href={it.href}
+          target="_blank"
+          rel="noopener noreferrer"
+          className={
+            prominent && i === 0
+              ? "btn-dark inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-[14px] font-medium"
+              : "inline-flex items-center gap-2 rounded-full px-3 py-1.5 text-[14px] font-medium text-fg-soft ring-1 ring-border-strong transition-colors hover:text-fg hover:ring-fg/40"
+          }
+        >
+          {it.icon}
+          {it.label}
+        </a>
+      ))}
+    </div>
   );
 }

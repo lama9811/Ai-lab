@@ -115,66 +115,94 @@ const people: Person[] = [
 ];
 
 export function PeopleGrid() {
-  return (
-    <section id="people" className="border-t border-border">
-      <div className="mx-auto max-w-[1280px] px-6 lg:px-10 py-20 lg:py-24">
-        <div className="mb-10">
-          <span className="text-[10.5px] tracking-normal text-accent">People</span>
-          <h2 className="font-display font-semibold text-[2rem] sm:text-[2.6rem] lg:text-[3rem] leading-[1.04] tracking-[-0.03em] mt-3">
-            Meet the lab
-          </h2>
-        </div>
+  // The first entry is the lab director and gets the featured layout.
+  const [director, ...team] = people;
 
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6 items-start">
-          {people.map((p, i) => (
-            <div key={`${p.name}-${i}`} className="card group rounded-2xl overflow-hidden">
-              <div className="aspect-square relative overflow-hidden bg-surface-2">
-                {p.photo ? (
-                  <Image
-                    src={p.photo}
-                    alt={p.name}
-                    fill
-                    sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
-                    className="object-cover"
-                  />
-                ) : (
-                  <Avatar name={p.name} index={i} />
-                )}
+  return (
+    <section id="people" className="border-t border-border bg-bg">
+      <div className="mx-auto max-w-[1280px] px-6 py-20 lg:px-10 lg:py-28">
+        <h2 className="font-display text-[2.3rem] leading-[1.05] sm:text-[3rem]">
+          The people behind the work
+        </h2>
+
+        <article className="mt-12 grid gap-8 rounded-2xl bg-ink p-6 text-white sm:p-8 md:grid-cols-[minmax(0,260px)_1fr] md:items-center md:gap-12 lg:p-10">
+          <div className="relative aspect-[4/5] w-full max-w-[260px] overflow-hidden rounded-xl bg-ink-2">
+            <Portrait person={director} index={0} sizes="260px" />
+          </div>
+          <div>
+            <p className="text-[14px] font-semibold text-accent">Lab director</p>
+            <h3 className="font-display mt-2 text-[2rem] leading-tight sm:text-[2.4rem]">
+              {director.name}
+            </h3>
+            <p className="mt-2 text-[15px] text-white/70">
+              {director.role.replace(/^Lab Director · /, "")}
+            </p>
+            {director.bio && (
+              <p className="font-serif mt-5 max-w-[36rem] text-[1.12rem] leading-[1.7] text-white/85">
+                {director.bio}
+              </p>
+            )}
+            {director.link && (
+              <a
+                href={director.link.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-primary mt-7 inline-flex items-center rounded-full px-5 py-2.5 text-[14px] font-semibold"
+              >
+                {director.link.label === "Learn more" ? "Read Dr. Wang's profile" : director.link.label}
+              </a>
+            )}
+          </div>
+        </article>
+
+        <ul className="mt-10 grid grid-cols-2 gap-x-5 gap-y-9 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 items-start">
+          {team.map((p, i) => (
+            <li key={`${p.name}-${i}`}>
+              <div className="relative aspect-[4/5] overflow-hidden rounded-xl bg-surface-2 ring-1 ring-border">
+                <Portrait
+                  person={p}
+                  index={i + 1}
+                  sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, (max-width: 1280px) 25vw, 200px"
+                />
               </div>
-              <div className="p-5">
-                <h3 className="font-display font-semibold text-[1.15rem] leading-[1.2] tracking-[-0.02em]">
-                  {p.name}
-                </h3>
-                <p className="mt-1 text-[13px] text-fg-soft">{p.role}</p>
-                {p.bio && (
-                  <p className="mt-2.5 text-[12.5px] leading-[1.5] text-fg-muted">
-                    {p.bio}
-                  </p>
-                )}
-                {p.link && (
-                  <a
-                    href={p.link.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="mt-3 inline-flex items-center gap-1.5 text-[12.5px] text-accent hover:underline"
-                  >
-                    {p.link.label}
-                    <svg width="10" height="10" viewBox="0 0 11 11" aria-hidden>
-                      <path
-                        d="M1 5.5h9M6 1.5l4 4-4 4"
-                        stroke="currentColor"
-                        strokeWidth="1.3"
-                        fill="none"
-                      />
-                    </svg>
-                  </a>
-                )}
-              </div>
-            </div>
+              <h3 className="mt-4 text-[15.5px] font-semibold leading-snug">{p.name}</h3>
+              <p className="mt-0.5 text-[13.5px] text-fg-muted">{p.role}</p>
+              {p.bio && (
+                <p className="font-serif mt-2 text-[14px] leading-[1.55] text-fg-soft">{p.bio}</p>
+              )}
+              {p.link && (
+                <a
+                  href={p.link.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`${p.name} on ${p.link.label}`}
+                  className="mt-2 inline-flex items-center gap-1.5 text-[13.5px] font-medium text-brand-blue hover:underline"
+                >
+                  <LinkedInGlyph />
+                  {p.link.label}
+                </a>
+              )}
+            </li>
           ))}
-        </div>
+        </ul>
       </div>
     </section>
+  );
+}
+
+function Portrait({ person, index, sizes }: { person: Person; index: number; sizes: string }) {
+  return person.photo ? (
+    <Image src={person.photo} alt={person.name} fill sizes={sizes} className="object-cover" />
+  ) : (
+    <Avatar name={person.name} index={index} />
+  );
+}
+
+function LinkedInGlyph() {
+  return (
+    <svg width="14" height="14" viewBox="0 0 24 24" aria-hidden fill="currentColor">
+      <path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28ZM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12ZM7.12 20.45H3.56V9h3.56v11.45ZM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0Z" />
+    </svg>
   );
 }
 

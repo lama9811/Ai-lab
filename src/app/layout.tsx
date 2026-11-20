@@ -1,17 +1,25 @@
 import type { Metadata } from "next";
-import { Space_Grotesk } from "next/font/google";
+import { Archivo, Source_Serif_4 } from "next/font/google";
 import "./globals.css";
 
-const sans = Space_Grotesk({
-  variable: "--font-sans",
+const archivo = Archivo({
+  variable: "--font-archivo",
   subsets: ["latin"],
+  axes: ["wdth"],
+  display: "swap",
+});
+
+const sourceSerif = Source_Serif_4({
+  variable: "--font-source-serif",
+  subsets: ["latin"],
+  axes: ["opsz"],
   display: "swap",
 });
 
 export const metadata: Metadata = {
   title: "Applied AI Lab · Morgan State University",
   description:
-    "Research, systems, and ideas from the Applied AI Lab at the Morgan State University Department of Computer Science.",
+    "The Applied AI Lab at Morgan State University builds AI that works in the real world: advising agents, fairer computer vision, environmental machine learning, and quantum-secure networks.",
 };
 
 export default function RootLayout({
@@ -20,7 +28,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${sans.variable} h-full antialiased`}
+      className={`${archivo.variable} ${sourceSerif.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-bg text-fg">
         {children}

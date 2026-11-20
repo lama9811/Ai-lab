@@ -1,12 +1,13 @@
 import Image from "next/image";
+import Link from "next/link";
 
-type Props = { tone?: "ink" | "paper"; compact?: boolean; className?: string };
+type Props = { compact?: boolean; className?: string };
 
 export function Wordmark({ compact = false, className }: Props) {
   return (
-    <a
+    <Link
       href="/"
-      aria-label="Applied AI Lab — Morgan State University home"
+      aria-label="Applied AI Lab, Morgan State University home"
       className="group inline-flex items-center"
     >
       <Image
@@ -15,8 +16,8 @@ export function Wordmark({ compact = false, className }: Props) {
         width={1655}
         height={406}
         className={className ?? (compact ? "h-10 w-auto" : "h-12 w-auto max-w-none sm:h-16 lg:h-11 xl:h-16")}
-        priority
+        loading="eager"
       />
-    </a>
+    </Link>
   );
 }
